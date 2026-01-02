@@ -1,0 +1,123 @@
+.verse {
+  height: 100vh;
+  position: sticky;
+  padding: 1rem;
+  top: 0;
+}
+
+.verse-container {
+  border-radius: 2rem;
+  height: 100%;
+  box-shadow: 0 0 1rem #00000066;
+  background: var(--color-b4);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.verse-meta {
+  padding: 1rem;
+  border-radius: 2rem 2rem 0 0;
+  background: var(--color-c3);
+  color: var(--color-b4);
+  flex-shrink: 0;
+}
+
+.verse-song-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.verse-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.verse-creators {
+  font-size: 0.75rem;
+  font-weight: 200;
+  border-radius: 1rem;
+  line-height: 1;
+  display: flex;
+  gap: 0.5ch;
+}
+
+.verse-lyrics {
+  flex-grow: 1;
+  min-height: 0;
+  background: var(--color-c4);
+  padding: 10rem 1rem;
+  overflow-y: hidden;
+}
+
+.verse-lyric {
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.verse-lyric.active {
+  font-weight: 600;
+  color: var(--color-c1);
+}
+
+.verse-lyric.done {
+  opacity: 0.6;
+}
+
+.verse-controls {
+  padding: 1rem;
+  background: var(--color-c3);
+  color: var(--color-b4);
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.verse-control-button {
+  background: var(--color-c4);
+  color: var(--color-c1);
+  border: none;
+  border-radius: 2rem;
+  padding: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  corner-shape: squircle;
+  transition: scale 0.1s ease, background 0.3s ease-in-out;
+}
+
+.verse-control-button:hover {
+  background: var(--color-b4);
+}
+
+.verse-control-button:active {
+  scale: 0.8;
+}
+
+.verse-control-button svg {
+  fill: currentColor;
+}
+
+.verse-control-loader {
+  background: var(--color-c2);
+  color: var(--color-c4);
+  border: none;
+  border-radius: 2rem;
+  padding: 1rem;
+  font-size: 1rem;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  corner-shape: squircle;
+  transition: scale 0.1s ease, background 0.3s ease-in-out;
+}
+

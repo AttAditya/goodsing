@@ -41,13 +41,13 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 1rem;
-  background-color: var(--color-a2);
+  width: 0rem;
+  background-color: var(--color-c3);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-b2);
-  border-radius: 1rem;
+  background-color: var(--color-c4);
+  border-radius: 0.5rem;
   border: none;
 }
 

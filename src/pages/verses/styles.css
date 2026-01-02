@@ -1,0 +1,6 @@
+.verses {
+  background: var(--color-b4);
+  height: 100vh;
+  overflow-y: auto;
+  position: relative;
+}
