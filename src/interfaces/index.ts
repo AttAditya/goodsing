@@ -6,6 +6,7 @@ export interface Creator {
 export interface Lyric {
   lyric: string;
   wait: number;
+  timestamp: number;
 }
 
 export interface Audios {

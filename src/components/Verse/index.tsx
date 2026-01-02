@@ -1,9 +1,16 @@
 import "./styles.css";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { RefObject, useCallback, useEffect, useRef } from "react";
 import { LoaderCircle, Pause, Play, Rewind } from "lucide-react";
 
 import { VerseData } from "@interfaces/index";
+
+import { useAudio } from "@hooks/useAudio";
+import { useLyricsSync } from "@hooks/useLyricsSync";
+import { useScrollHelper } from "@hooks/useScrollHelper";
+
+import { ScrollableBlock } from "@components/ScrollableBlock";
+import { Block } from "@components/Block";
 
 export function Verse({
   verseId,
@@ -14,113 +21,45 @@ export function Verse({
   audios,
   active,
 }: VerseData & { active?: boolean }) {
-  const [currentLyricIndex, setCurrentLyricIndex] = useState(0);
-  const [playing, setPlaying] = useState(false);
-  const [audioReady, setAudioReady] = useState(false);
+  const parentRef = useRef<HTMLDivElement>(null);
+  const parentTop = useRef<number>(0);
+  const parentHeight = useRef<number>(0);
+  const linesRef = useRef<{ [key: string]: RefObject<number> }>({});
 
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const lyricsRef = useRef<HTMLDivElement>(null);
-  const timerRef = useRef<number>(0);
-  const lyricTsRef = useRef<number>(0);
-  const elapsedRef = useRef<number>(0);
-  const pendingRef = useRef<number>(0);
+  const {
+    currentLyricIndex,
+    updateLyricIndex,
+  } = useLyricsSync(lyrics);
 
-  const rewindSong = useCallback(() => {
-    if (audioRef.current)
-      audioRef.current.currentTime = 0;
+  const {
+    audioReady, playing,
+    reset, resume, pause,
+    setFinishHandler,
+    setTickHandler,
+  } = useAudio(audios.original);
 
-    clearTimeout(timerRef.current);
-    setCurrentLyricIndex(0);
-
-    timerRef.current = 0;
-    lyricTsRef.current = 0;
-    elapsedRef.current = 0;
-    pendingRef.current = 0;
-
-    lyricsRef.current?.scrollTo({ top: 0 });
-    resumeSong();
-  }, []);
-
-  const pauseSong = useCallback(() => {
-    audioRef.current?.pause();
-    elapsedRef.current = Date.now() - lyricTsRef.current;
-    
-    clearTimeout(timerRef.current);
-    setPlaying(false);
-  }, []);
-
-  const resumeSong = useCallback(async () => {
-    await audioRef.current?.play().catch(() => {});
-    setPlaying(true);
-
-    if (lyricTsRef.current === 0)
-      return;
-    
-    lyricTsRef.current = Date.now() - elapsedRef.current;
-    pendingRef.current = lyrics[currentLyricIndex].wait - elapsedRef.current;
-  }, []);
+  const { scroll } = useScrollHelper();
 
   const togglePlay = useCallback(() => {
-    (playing
-      ? pauseSong
-      : resumeSong
-    )();
+    (playing ? pause : resume)();
   }, [playing]);
 
+  setFinishHandler(reset);
+  setTickHandler(updateLyricIndex);
+  
   useEffect(() => {
-    setAudioReady(false);
-    audioRef.current = new Audio(audios.original);
-    audioRef.current.onended = () => rewindSong();
-    audioRef.current.oncanplaythrough = () => setAudioReady(true);
-    
-    return () => {
-      audioRef.current?.pause();
-      audioRef.current = null;
-    };
-  }, [rewindSong, audios.original]);
-
-  useEffect(() => {
-    setCurrentLyricIndex(0);
-    lyricsRef.current?.scrollTo({ top: 0 });
-    (active
-      ? rewindSong
-      : pauseSong
-    )();
+    (active ? reset : pause)()
   }, [active]);
 
   useEffect(() => {
-    if (!active || !playing || !audioReady) return;
-    if (currentLyricIndex >= lyrics.length) return;
+    const lineKey = `lyric-${verseId}-${currentLyricIndex}`;
+    const y = linesRef.current?.[lineKey]?.current || 0;
+    const top = parentTop.current || 0;
+    const height = parentHeight.current;
+    const scrollTop = y - top - (height / 2);
 
-    const lyricData = lyrics[currentLyricIndex];
-    const lyricId = `lyric-${verseId}-${currentLyricIndex}`;
-    const lyricEl = document.getElementById(lyricId);
-    
-    lyricsRef.current?.scrollTo({
-      behavior: "smooth",
-      top:
-        - lyricsRef.current.offsetTop
-        + (lyricEl?.offsetTop || 0)
-        - lyricsRef.current.getBoundingClientRect().height / 2,
-    })
-
-    lyricTsRef.current = Date.now();
-    timerRef.current = setTimeout(() => {
-      pendingRef.current = 0;
-      setCurrentLyricIndex(currentLyricIndex + 1);
-    }, pendingRef.current || lyricData.wait);
-
-    return () => {
-      clearTimeout(timerRef.current);
-    };
-  }, [
-    active,
-    playing,
-    audioReady,
-    currentLyricIndex,
-    lyrics,
-    verseId,
-  ]);
+    scroll(parentRef.current, scrollTop);
+  }, [currentLyricIndex]);
 
   return (
     <div className="verse" id={`sing-${verseId}`}>
@@ -140,25 +79,32 @@ export function Verse({
           </div>
         </div>
 
-        <div className="verse-lyrics" ref={lyricsRef}>
-          {lyrics.map((lyric, index) => (
-            <p
-              key={index}
-              className={[
-                "verse-lyric",
-                index < currentLyricIndex && active
-                  ? "done"
-                  : "",
-                index === currentLyricIndex && active
-                  ? "active"
-                  : "",
-              ].join(" ")}
-              id={`lyric-${verseId}-${index}`}
-            >
-              {lyric.lyric}
-            </p>
-          ))}
-        </div>
+        <ScrollableBlock
+          className="verse-lyrics"
+          topRef={parentTop}
+          heightRef={parentHeight}
+          elementRef={parentRef}
+        >
+          {lyrics.map((lyric, index) => {
+            const key = `lyric-${verseId}-${index}`;
+            if (!linesRef.current[key])
+              linesRef.current[key] = { current: 0 };
+
+            return (
+              <Block
+                key={index}
+                topRef={linesRef.current[key]}
+                className={[
+                  "verse-lyric",
+                  index < currentLyricIndex && active ? "done" : "",
+                  index === currentLyricIndex && active ? "active" : "",
+                ].join(" ")}
+              >
+                {lyric.lyric}
+              </Block>
+            )
+          })}
+        </ScrollableBlock>
 
         <div className="verse-controls">
           {!audioReady && <button
@@ -170,7 +116,7 @@ export function Verse({
           {audioReady && <>
             <button
               className="verse-control-button"
-              onClick={rewindSong}
+              onClick={reset}
             >
               <Rewind />
             </button>
@@ -179,11 +125,7 @@ export function Verse({
               className="verse-control-button"
               onClick={togglePlay}
             >
-              {
-                playing
-                  ? <Pause />
-                  : <Play />
-              }
+              {playing ? <Pause /> : <Play />}
             </button>
           </>}
         </div>

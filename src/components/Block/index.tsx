@@ -1,0 +1,38 @@
+import { HTMLAttributes, ReactNode, RefObject, useLayoutEffect, useRef } from "react";
+
+export function Block({
+  leftRef,
+  topRef,
+  widthRef,
+  heightRef,
+  elementRef,
+  children,
+  ...htmlProps
+}: {
+  leftRef?: RefObject<number>;
+  topRef?: RefObject<number>;
+  widthRef?: RefObject<number>;
+  heightRef?: RefObject<number>;
+  elementRef?: RefObject<HTMLDivElement | null>;
+  children: ReactNode;
+} & HTMLAttributes<HTMLDivElement>) {
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    leftRef && (leftRef.current = el.offsetLeft);
+    topRef && (topRef.current = el.offsetTop);
+    widthRef && (widthRef.current = el.offsetWidth);
+    heightRef && (heightRef.current = el.offsetHeight);
+    elementRef && (elementRef.current = el);
+  });
+
+  return (<>
+    <div ref={ref} {...htmlProps}>
+      {children}
+    </div>
+  </>);
+}
+

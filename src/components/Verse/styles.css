@@ -7,6 +7,7 @@
 
 .verse-container {
   border-radius: 2rem;
+  corner-shape: squircle;
   height: 100%;
   box-shadow: 0 0 1rem #00000066;
   background: var(--color-b4);
@@ -18,7 +19,6 @@
 
 .verse-meta {
   padding: 1rem;
-  border-radius: 2rem 2rem 0 0;
   background: var(--color-c3);
   color: var(--color-b4);
   flex-shrink: 0;
