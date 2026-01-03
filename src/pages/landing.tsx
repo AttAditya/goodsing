@@ -1,5 +1,5 @@
-import { Verses } from "@pages/verses";
 import { useEffect, useState } from "react";
+import { Verses } from "@pages/verses";
 
 export function Landing() {
   const [ready, setReady] = useState<boolean>(false);

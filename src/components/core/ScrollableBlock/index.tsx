@@ -1,5 +1,5 @@
 import { ComponentProps } from "react";
-import { Block } from "@components/Block";
+import { Block } from "@components/core/Block";
 
 export function ScrollableBlock({
   ...props

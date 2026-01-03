@@ -1,5 +1,3 @@
-import "./styles.css";
-
 import { RefObject, useCallback, useEffect, useRef } from "react";
 import { LoaderCircle, Pause, Play, Rewind } from "lucide-react";
 
@@ -9,8 +7,9 @@ import { useAudio } from "@hooks/useAudio";
 import { useLyricsSync } from "@hooks/useLyricsSync";
 import { useScrollHelper } from "@hooks/useScrollHelper";
 
-import { ScrollableBlock } from "@components/ScrollableBlock";
-import { Block } from "@components/Block";
+import { ScrollableBlock } from "@components/core/ScrollableBlock";
+import { Block } from "@components/core/Block";
+import { Container } from "@components/core/Container";
 
 export function Verse({
   verseId,
@@ -21,7 +20,7 @@ export function Verse({
   audios,
   active,
 }: VerseData & { active?: boolean }) {
-  const parentRef = useRef<HTMLDivElement>(null);
+  const parentRef = useRef(null);
   const parentTop = useRef<number>(0);
   const parentHeight = useRef<number>(0);
   const linesRef = useRef<{ [key: string]: RefObject<number> }>({});
@@ -62,13 +61,13 @@ export function Verse({
   }, [currentLyricIndex]);
 
   return (
-    <div className="verse" id={`sing-${verseId}`}>
-      <div className="verse-container">
-        <div className="verse-meta">
+    <Container className="verse" id={`sing-${verseId}`}>
+      <Container className="verse-container">
+        <Container className="verse-meta">
           <h2 className="verse-song-name">{songName}</h2>
           <h3 className="verse-name">{verseName}</h3>
           
-          <div className="verse-creators">
+          <Container className="verse-creators">
             <span>By</span>
             {creators.map((creator, index) => (
               <span key={index} className="verse-creator">
@@ -76,8 +75,8 @@ export function Verse({
                 {index < creators.length - 1 ? "," : ""}
               </span>
             ))}
-          </div>
-        </div>
+          </Container>
+        </Container>
 
         <ScrollableBlock
           className="verse-lyrics"
@@ -106,7 +105,7 @@ export function Verse({
           })}
         </ScrollableBlock>
 
-        <div className="verse-controls">
+        <Container className="verse-controls">
           {!audioReady && <button
             className="verse-control-loader"
           >
@@ -128,9 +127,9 @@ export function Verse({
               {playing ? <Pause /> : <Play />}
             </button>
           </>}
-        </div>
-      </div>
-    </div>
+        </Container>
+      </Container>
+    </Container>
   );
 }
 

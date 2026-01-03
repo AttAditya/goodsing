@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode, RefObject, useLayoutEffect, useRef } from "react";
+import { ReactNode, RefObject, useLayoutEffect, useRef } from "react";
 
 export function Block({
   leftRef,
@@ -6,16 +6,17 @@ export function Block({
   widthRef,
   heightRef,
   elementRef,
+  className,
   children,
-  ...htmlProps
 }: {
   leftRef?: RefObject<number>;
   topRef?: RefObject<number>;
   widthRef?: RefObject<number>;
   heightRef?: RefObject<number>;
   elementRef?: RefObject<HTMLDivElement | null>;
+  className?: string;
   children: ReactNode;
-} & HTMLAttributes<HTMLDivElement>) {
+}) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
@@ -30,7 +31,7 @@ export function Block({
   });
 
   return (<>
-    <div ref={ref} {...htmlProps}>
+    <div ref={ref} className={className}>
       {children}
     </div>
   </>);

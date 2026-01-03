@@ -1,10 +1,8 @@
-import "./styles.css";
-
 import { useState } from "react";
 
 import { VerseData } from "@interfaces/index";
 import { useScrollHandler } from "@hooks/useScrollHandler";
-import { Verse } from "@components/Verse";
+import { Verse } from "@components/verses/Verse";
 import { VERSES } from "@registry/verses";
 
 export function Verses() {
