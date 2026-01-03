@@ -9,10 +9,10 @@ export function Container({
   id?: string;
   children: ReactNode;
 }) {
-  return (<>
+  return (
     <div className={className} id={id}>
       {children}
     </div>
-  </>);
+  );
 }
 

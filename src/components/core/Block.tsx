@@ -30,10 +30,10 @@ export function Block({
     elementRef && (elementRef.current = el);
   });
 
-  return (<>
+  return (
     <div ref={ref} className={className}>
       {children}
     </div>
-  </>);
+  );
 }
 

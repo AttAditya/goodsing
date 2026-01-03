@@ -19,7 +19,11 @@ export function Verse({
   lyrics,
   audios,
   active,
-}: VerseData & { active?: boolean }) {
+  scrollReady,
+}: VerseData & {
+  active?: boolean,
+  scrollReady?: boolean,
+}) {
   const parentRef = useRef(null);
   const parentTop = useRef<number>(0);
   const parentHeight = useRef<number>(0);
@@ -61,7 +65,10 @@ export function Verse({
   }, [currentLyricIndex]);
 
   return (
-    <Container className="verse" id={`sing-${verseId}`}>
+    <Container
+      className={`verse ${scrollReady ? "scroll-ready" : ""}`}
+      id={`sing-${verseId}`}
+    >
       <Container className="verse-container">
         <Container className="verse-meta">
           <h2 className="verse-song-name">{songName}</h2>

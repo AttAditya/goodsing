@@ -1,8 +1,14 @@
 .verse {
+  min-height: 100vh;
+  max-height: 100vh;
   height: 100vh;
-  position: sticky;
+  scroll-snap-align: start;
   padding: 1rem;
   top: 0;
+}
+
+.verse:not(.scroll-ready) {
+  display: none;
 }
 
 .verse-container {
