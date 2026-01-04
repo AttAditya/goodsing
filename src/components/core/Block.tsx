@@ -7,6 +7,7 @@ export function Block({
   heightRef,
   elementRef,
   className,
+  onClick,
   children,
 }: {
   leftRef?: RefObject<number>;
@@ -15,6 +16,7 @@ export function Block({
   heightRef?: RefObject<number>;
   elementRef?: RefObject<HTMLDivElement | null>;
   className?: string;
+  onClick?: () => void;
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -31,7 +33,11 @@ export function Block({
   });
 
   return (
-    <div ref={ref} className={className}>
+    <div
+      ref={ref}
+      className={className}
+      onClick={onClick}
+    >
       {children}
     </div>
   );

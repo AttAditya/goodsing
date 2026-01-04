@@ -32,6 +32,11 @@ export function useAudio(audioUrl: string) {
     ontickHandler.current = handler;
   };
 
+  const setTime = (time: number) => {
+    if (audioRef.current)
+      audioRef.current.currentTime = time;
+  };
+
   useEffect(() => {
     setAudioReady(false);
     audioRef.current = new Audio(audioUrl);
@@ -56,6 +61,7 @@ export function useAudio(audioUrl: string) {
     pause,
     setFinishHandler,
     setTickHandler,
+    setTime,
   }
 }
 

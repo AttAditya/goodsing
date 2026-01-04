@@ -17,6 +17,14 @@ export function useLyricsSync(
     });
   };
 
-  return { currentLyricIndex, updateLyricIndex };
+  const lyricTimestamp = (index: number) => {
+    return (lyrics[index]?.timestamp || 0) / 1000;
+  }
+
+  return {
+    currentLyricIndex,
+    updateLyricIndex,
+    lyricTimestamp,
+  };
 }
 

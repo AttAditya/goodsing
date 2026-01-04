@@ -56,7 +56,7 @@
   min-height: 0;
   background: var(--color-c4);
   padding: 10rem 1rem;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .verse-lyric {

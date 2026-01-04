@@ -32,13 +32,14 @@ export function Verse({
   const {
     currentLyricIndex,
     updateLyricIndex,
+    lyricTimestamp,
   } = useLyricsSync(lyrics);
 
   const {
     audioReady, playing,
     reset, resume, pause,
     setFinishHandler,
-    setTickHandler,
+    setTickHandler, setTime,
   } = useAudio(audios.original);
 
   const { scroll } = useScrollHelper();
@@ -100,6 +101,7 @@ export function Verse({
               <Block
                 key={index}
                 topRef={linesRef.current[key]}
+                onClick={() => setTime(lyricTimestamp(index))}
                 className={[
                   "verse-lyric",
                   index < currentLyricIndex && active ? "done" : "",
