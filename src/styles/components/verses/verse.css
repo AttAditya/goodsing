@@ -30,16 +30,34 @@
   flex-shrink: 0;
 }
 
-.verse-song-name {
+.verse-meta-name {
+  display: flex;
+  overflow-x: hidden;
+  line-height: 1.4;
   font-size: 1.5rem;
+}
+
+.verse-meta-name-content {
+  min-width: calc(100vw + 5rem);
+  flex: 1;
+  position: relative;
+  display: inline;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  animation: scroll-repeats 12.5s linear infinite;
+}
+
+.verse-meta-name-content::after {
+}
+
+.verse-song-name {
   font-weight: 800;
-  line-height: 1.1;
+  text-wrap: nowrap;
 }
 
 .verse-name {
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.4;
+  font-weight: 200;
+  text-wrap: nowrap;
 }
 
 .verse-creators {
@@ -49,6 +67,13 @@
   line-height: 1;
   display: flex;
   gap: 0.5ch;
+}
+
+.verse-contents {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
 }
 
 .verse-lyrics {

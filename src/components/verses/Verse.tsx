@@ -1,5 +1,12 @@
-import { RefObject, useCallback, useEffect, useRef } from "react";
-import { LoaderCircle, Pause, Play, Rewind } from "lucide-react";
+import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import {
+  LoaderCircle,
+  Pause,
+  Play,
+  Rewind,
+  Sparkles,
+  WandSparkles,
+} from "lucide-react";
 
 import { VerseData } from "@interfaces/index";
 
@@ -28,6 +35,7 @@ export function Verse({
   const parentTop = useRef<number>(0);
   const parentHeight = useRef<number>(0);
   const linesRef = useRef<{ [key: string]: RefObject<number> }>({});
+  const [hyped, setHyped] = useState(false);
 
   const {
     currentLyricIndex,
@@ -72,8 +80,16 @@ export function Verse({
     >
       <Container className="verse-container">
         <Container className="verse-meta">
-          <h2 className="verse-song-name">{songName}</h2>
-          <h3 className="verse-name">{verseName}</h3>
+          <Container className="verse-meta-name">
+            <Container className="verse-meta-name-content">
+              <span className="verse-song-name">{songName}</span>
+              <span className="verse-name">{} - {verseName}</span>
+            </Container>
+            <Container className="verse-meta-name-content">
+              <span className="verse-song-name">{songName}</span>
+              <span className="verse-name">{} - {verseName}</span>
+            </Container>
+          </Container>
           
           <Container className="verse-creators">
             <span>By</span>
@@ -86,33 +102,35 @@ export function Verse({
           </Container>
         </Container>
 
-        <ScrollableBlock
-          className="verse-lyrics"
-          topRef={parentTop}
-          heightRef={parentHeight}
-          elementRef={parentRef}
-        >
-          {lyrics.map((lyric, index) => {
-            const key = `lyric-${verseId}-${index}`;
-            if (!linesRef.current[key])
-              linesRef.current[key] = { current: 0 };
+        <Container className="verse-contents">
+          <ScrollableBlock
+            className="verse-lyrics"
+            topRef={parentTop}
+            heightRef={parentHeight}
+            elementRef={parentRef}
+          >
+            {lyrics.map((lyric, index) => {
+              const key = `lyric-${verseId}-${index}`;
+              if (!linesRef.current[key])
+                linesRef.current[key] = { current: 0 };
 
-            return (
-              <Block
-                key={index}
-                topRef={linesRef.current[key]}
-                onClick={() => setTime(lyricTimestamp(index))}
-                className={[
-                  "verse-lyric",
-                  index < currentLyricIndex && active ? "done" : "",
-                  index === currentLyricIndex && active ? "active" : "",
-                ].join(" ")}
-              >
-                {lyric.lyric}
-              </Block>
-            )
-          })}
-        </ScrollableBlock>
+              return (
+                <Block
+                  key={index}
+                  topRef={linesRef.current[key]}
+                  onClick={() => setTime(lyricTimestamp(index))}
+                  className={[
+                    "verse-lyric",
+                    index < currentLyricIndex && active ? "done" : "",
+                    index === currentLyricIndex && active ? "active" : "",
+                  ].join(" ")}
+                >
+                  {lyric.lyric}
+                </Block>
+              )
+            })}
+          </ScrollableBlock>
+        </Container>
 
         <Container className="verse-controls">
           {!audioReady && <button
@@ -134,6 +152,13 @@ export function Verse({
               onClick={togglePlay}
             >
               {playing ? <Pause /> : <Play />}
+            </button>
+
+            <button
+              className="verse-control-button"
+              onClick={() => setHyped((hyped) => !hyped)}
+            >
+              {hyped ? <Sparkles /> : <WandSparkles />}
             </button>
           </>}
         </Container>

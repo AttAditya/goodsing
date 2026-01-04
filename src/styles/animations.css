@@ -3,6 +3,11 @@
   100% { transform: rotate(360deg); }
 }
 
+@keyframes scroll-repeats {
+  0%, 20% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
 .spin {
   animation: spin 0.75s linear infinite;
 }
