@@ -12,6 +12,7 @@ import { TextContent } from "@components/core/TextContent";
 import { Sweeper } from "@components/core/Sweeper";
 import { IconButton } from "@components/core/IconButton";
 import { LyricLine } from "@components/verses/LyricLine";
+import { VerseOptions } from "@components/verses/VerseOptions";
 
 export function Verse({
   verseId,
@@ -30,7 +31,9 @@ export function Verse({
   const parentTop = useRef<number>(0);
   const parentHeight = useRef<number>(0);
   const linesRef = useRef<{ [key: string]: RefObject<number> }>({});
+  
   const [hyped, setHyped] = useState(false);
+  const [optionsActive, setOptionsActive] = useState(false);
 
   const {
     currentLyricIndex,
@@ -43,6 +46,7 @@ export function Verse({
     reset, resume, pause,
     setFinishHandler,
     setTickHandler, setTime,
+    setSpeed,
   } = useAudio(audios.original);
 
   const { scroll } = useScrollHelper();
@@ -127,6 +131,12 @@ export function Verse({
 
           {audioReady && <>
             <IconButton
+              onClick={() => setOptionsActive((active) => !active)}
+              icon={"Wrench"}
+              filled
+            />
+
+            <IconButton
               onClick={reset}
               icon="Rewind"
               filled
@@ -145,6 +155,11 @@ export function Verse({
             />
           </>}
         </Container>
+
+        <VerseOptions
+          active={optionsActive}
+          updateSpeed={setSpeed}
+        />
       </Container>
     </Container>
   );

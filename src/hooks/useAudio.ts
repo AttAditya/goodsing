@@ -7,6 +7,7 @@ export function useAudio(audioUrl: string) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const onendedHandler = useRef<() => void>(() => {});
   const ontickHandler = useRef<(time: number) => void>(() => {});
+  const speedRef = useRef<number>(1);
 
   const reset = () => {
     if (!audioRef.current) return;
@@ -37,11 +38,18 @@ export function useAudio(audioUrl: string) {
       audioRef.current.currentTime = time;
   };
 
+  const setSpeed = (speed: number) => {
+    speedRef.current = speed;
+    if (audioRef.current)
+      audioRef.current.playbackRate = speed;
+  };
+
   useEffect(() => {
     setAudioReady(false);
     audioRef.current = new Audio(audioUrl);
     audioRef.current.onended = onendedHandler.current;
     audioRef.current.oncanplaythrough = () => setAudioReady(true);
+    audioRef.current.playbackRate = speedRef.current;
     audioRef.current.ontimeupdate = () => {
       ontickHandler.current(audioRef.current?.currentTime || 0);
     };
@@ -62,6 +70,7 @@ export function useAudio(audioUrl: string) {
     setFinishHandler,
     setTickHandler,
     setTime,
+    setSpeed,
   }
 }
 

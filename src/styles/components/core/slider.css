@@ -1,0 +1,42 @@
+.slider {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: var(--color-c4);
+  color: var(--color-c1);
+  padding: 1rem;
+  border-radius: 2rem;
+  corner-shape: squircle;
+}
+
+.slider-input {
+  flex-grow: 1;
+  -webkit-appearance: none;
+}
+
+.slider-input::after {
+  content: attr("value");
+}
+
+.slider-input::-webkit-slider-runnable-track {
+  height: 1rem;
+  background: var(--color-c1);
+  border-radius: 0.5rem;
+}
+
+.slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 4rem;
+  height: 2rem;
+  margin-top: -0.5rem;
+  border-radius: 0.5rem;
+  background: var(--color-c3);
+  cursor: pointer;
+}
+
+.slider-input::-webkit-slider-thumb::after {
+  content: 'hi';
+  display: block;
+}
+
