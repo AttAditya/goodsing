@@ -1,6 +1,6 @@
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 
-import { VerseData } from "@interfaces/index";
+import { VerseData } from "@interfaces/verse";
 
 import { useAudio } from "@hooks/useAudio";
 import { useLyricsSync } from "@hooks/useLyricsSync";

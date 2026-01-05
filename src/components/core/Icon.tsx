@@ -1,12 +1,14 @@
 import { FC, SVGProps } from "react";
 import * as Lucide from "lucide-react";
 
+import { IconKey } from "@interfaces/icons";
+
 export function Icon({
   icon,
   animations,
   filled,
 }: {
-  icon: keyof typeof Lucide;
+  icon: IconKey;
   animations?: string[];
   filled?: boolean;
 }) {

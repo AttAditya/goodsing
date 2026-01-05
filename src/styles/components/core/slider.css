@@ -10,6 +10,13 @@
   corner-shape: squircle;
 }
 
+.slider-main {
+  flex-grow: 1;
+  display: flex;
+  align-self: stretch;
+  position: relative;
+}
+
 .slider-input {
   flex-grow: 1;
   -webkit-appearance: none;
@@ -30,13 +37,56 @@
   width: 4rem;
   height: 2rem;
   margin-top: -0.5rem;
-  border-radius: 0.5rem;
+  margin-right: -2rem;
   background: var(--color-c3);
   cursor: pointer;
+  z-index: 2;
+  position: relative;
+  border-radius: 1rem;
+  corner-shape: squircle;
 }
 
-.slider-input::-webkit-slider-thumb::after {
-  content: 'hi';
-  display: block;
+.slider-label-container {
+  position: absolute;
+  top: 0;
+  left: 2rem;
+  right: 2rem;
+  height: 100%;
+  pointer-events: none;
+}
+
+.slider-label {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-b4);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  transition: none;
+  font-weight: 600;
+  z-index: 2;
+  background: var(--color-c3);
+}
+
+.slider-ticks {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 100%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.slider-tick {
+  width: 0.25rem;
+  height: 0.5rem;
+  background: var(--color-b4);
+  border-radius: 0.125rem;
+  opacity: 0.25;
 }
 

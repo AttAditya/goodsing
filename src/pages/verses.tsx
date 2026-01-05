@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { VerseData } from "@interfaces/index";
+import { VerseData } from "@interfaces/verse";
 import { ReelScroller } from "@components/core/ReelScroller";
 import { Verse } from "@components/verses/Verse";
 import { VERSES } from "@registry/verses";

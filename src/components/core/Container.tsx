@@ -3,11 +3,11 @@ import { ReactNode } from "react";
 export function Container({
   className,
   id,
-  children,
+  children = null,
 }: {
   className?: string;
   id?: string;
-  children: ReactNode;
+  children?: ReactNode;
 }) {
   return (
     <div className={className} id={id}>

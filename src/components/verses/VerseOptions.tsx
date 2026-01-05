@@ -20,6 +20,8 @@ export function VerseOptions({
           step={0.03125}
           defaultValue={1}
           updateValue={updateSpeed}
+          iconMin="Turtle"
+          iconMax="Rabbit"
         />
       </Container>
     </Container>

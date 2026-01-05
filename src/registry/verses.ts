@@ -1,4 +1,4 @@
-import { VerseData } from "@interfaces/index";
+import { VerseData } from "@interfaces/verse";
 
 export const VERSES: VerseData[] = [
   {
