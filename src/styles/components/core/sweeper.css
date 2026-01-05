@@ -1,0 +1,17 @@
+.sweeper {
+  display: flex;
+  overflow-x: hidden;
+  line-height: 1.4;
+  font-size: 1.5rem;
+}
+
+.sweeper-content {
+  min-width: calc(100vw + 5rem);
+  flex: 1;
+  position: relative;
+  display: inline;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  animation: scroll-repeats 12.5s linear infinite;
+}
+

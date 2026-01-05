@@ -30,26 +30,6 @@
   flex-shrink: 0;
 }
 
-.verse-meta-name {
-  display: flex;
-  overflow-x: hidden;
-  line-height: 1.4;
-  font-size: 1.5rem;
-}
-
-.verse-meta-name-content {
-  min-width: calc(100vw + 5rem);
-  flex: 1;
-  position: relative;
-  display: inline;
-  font-size: 1.5rem;
-  line-height: 1.4;
-  animation: scroll-repeats 12.5s linear infinite;
-}
-
-.verse-meta-name-content::after {
-}
-
 .verse-song-name {
   font-weight: 800;
   text-wrap: nowrap;
@@ -84,22 +64,6 @@
   overflow-y: auto;
 }
 
-.verse-lyric {
-  font-size: 1.5rem;
-  font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-}
-
-.verse-lyric.active {
-  font-weight: 600;
-  color: var(--color-c1);
-}
-
-.verse-lyric.done {
-  opacity: 0.6;
-}
-
 .verse-controls {
   padding: 1rem;
   background: var(--color-c3);
@@ -108,47 +72,5 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
-}
-
-.verse-control-button {
-  background: var(--color-c4);
-  color: var(--color-c1);
-  border: none;
-  border-radius: 2rem;
-  padding: 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  corner-shape: squircle;
-  transition: scale 0.1s ease, background 0.3s ease-in-out;
-}
-
-.verse-control-button:hover {
-  background: var(--color-b4);
-}
-
-.verse-control-button:active {
-  scale: 0.8;
-}
-
-.verse-control-button svg {
-  fill: currentColor;
-}
-
-.verse-control-loader {
-  background: var(--color-c2);
-  color: var(--color-c4);
-  border: none;
-  border-radius: 2rem;
-  padding: 1rem;
-  font-size: 1rem;
-  cursor: default;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  corner-shape: squircle;
-  transition: scale 0.1s ease, background 0.3s ease-in-out;
 }
 

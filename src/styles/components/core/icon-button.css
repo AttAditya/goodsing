@@ -1,0 +1,29 @@
+.icon-button {
+  background: var(--color-c4);
+  color: var(--color-c1);
+  border: none;
+  border-radius: 2rem;
+  padding: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  corner-shape: squircle;
+  transition: scale 0.1s ease, background 0.3s ease-in-out;
+}
+
+.icon-button.passive {
+  background: var(--color-c2);
+  color: var(--color-c4);
+  cursor: default;
+}
+
+.icon-button:not(.passive):hover {
+  background: var(--color-b4);
+}
+
+.icon-button:not(.passive):active {
+  scale: 0.8;
+}
+

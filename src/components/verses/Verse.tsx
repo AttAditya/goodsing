@@ -1,12 +1,4 @@
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
-import {
-  LoaderCircle,
-  Pause,
-  Play,
-  Rewind,
-  Sparkles,
-  WandSparkles,
-} from "lucide-react";
 
 import { VerseData } from "@interfaces/index";
 
@@ -15,8 +7,11 @@ import { useLyricsSync } from "@hooks/useLyricsSync";
 import { useScrollHelper } from "@hooks/useScrollHelper";
 
 import { ScrollableBlock } from "@components/core/ScrollableBlock";
-import { Block } from "@components/core/Block";
 import { Container } from "@components/core/Container";
+import { TextContent } from "@components/core/TextContent";
+import { Sweeper } from "@components/core/Sweeper";
+import { IconButton } from "@components/core/IconButton";
+import { LyricLine } from "@components/verses/LyricLine";
 
 export function Verse({
   verseId,
@@ -80,24 +75,24 @@ export function Verse({
     >
       <Container className="verse-container">
         <Container className="verse-meta">
-          <Container className="verse-meta-name">
-            <Container className="verse-meta-name-content">
-              <span className="verse-song-name">{songName}</span>
-              <span className="verse-name">{} - {verseName}</span>
-            </Container>
-            <Container className="verse-meta-name-content">
-              <span className="verse-song-name">{songName}</span>
-              <span className="verse-name">{} - {verseName}</span>
-            </Container>
-          </Container>
+          <Sweeper>
+            <TextContent className="verse-song-name">
+              {songName}
+            </TextContent>
+            <TextContent className="verse-name">
+              {` - ${verseName}`}
+            </TextContent>
+          </Sweeper>
           
           <Container className="verse-creators">
-            <span>By</span>
+            <TextContent>By</TextContent>
             {creators.map((creator, index) => (
-              <span key={index} className="verse-creator">
-                {creator.name}
-                {index < creators.length - 1 ? "," : ""}
-              </span>
+              <TextContent key={index} className="verse-creator">
+                {[
+                  creator.name,
+                  index < creators.length - 1 ? "," : "",
+                ].join(" ")}
+              </TextContent>
             ))}
           </Container>
         </Container>
@@ -109,57 +104,45 @@ export function Verse({
             heightRef={parentHeight}
             elementRef={parentRef}
           >
-            {lyrics.map((lyric, index) => {
-              const key = `lyric-${verseId}-${index}`;
-              if (!linesRef.current[key])
-                linesRef.current[key] = { current: 0 };
-
-              return (
-                <Block
-                  key={index}
-                  topRef={linesRef.current[key]}
-                  onClick={() => setTime(lyricTimestamp(index))}
-                  className={[
-                    "verse-lyric",
-                    index < currentLyricIndex && active ? "done" : "",
-                    index === currentLyricIndex && active ? "active" : "",
-                  ].join(" ")}
-                >
-                  {lyric.lyric}
-                </Block>
-              )
-            })}
+            {lyrics.map((lyric, index) => <LyricLine
+              key={index}
+              lyric={lyric}
+              index={index}
+              verseId={verseId}
+              currentLyricIndex={currentLyricIndex}
+              linesRef={linesRef}
+              setTime={setTime}
+              lyricTimestamp={lyricTimestamp}
+              active={active}
+            />)}
           </ScrollableBlock>
         </Container>
 
         <Container className="verse-controls">
-          {!audioReady && <button
-            className="verse-control-loader"
-          >
-            <LoaderCircle className="spin" />
-          </button>}
+          {!audioReady && <IconButton
+            passive
+            icon="LoaderCircle"
+            animations={["spin"]}
+          />}
 
           {audioReady && <>
-            <button
-              className="verse-control-button"
+            <IconButton
               onClick={reset}
-            >
-              <Rewind />
-            </button>
+              icon="Rewind"
+              filled
+            />
 
-            <button
-              className="verse-control-button"
+            <IconButton
               onClick={togglePlay}
-            >
-              {playing ? <Pause /> : <Play />}
-            </button>
+              icon={playing ? "Pause" : "Play"}
+              filled
+            />
 
-            <button
-              className="verse-control-button"
+            <IconButton
               onClick={() => setHyped((hyped) => !hyped)}
-            >
-              {hyped ? <Sparkles /> : <WandSparkles />}
-            </button>
+              icon={hyped ? "Sparkles" : "ArrowBigUp"}
+              filled
+            />
           </>}
         </Container>
       </Container>
