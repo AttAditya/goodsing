@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import { Landing } from "@pages/landing";
+import { Navbar } from "@components/commons/Navbar";
 
 declare global {
   interface Window {
@@ -22,6 +23,8 @@ export function App() {
 
   return (
     <Router>
+      <Navbar />
+      
       <Routes>
         <Route index element={<Landing />} />
       </Routes>

@@ -13,9 +13,11 @@ export function Landing() {
 
   if (ready) return <Verses />;
   return (
-    <button onClick={() => setReady(true)}>
-      Start
-    </button>
+    <div className="landing">
+      <button onClick={() => setReady(true)}>
+        Start
+      </button>
+    </div>
   );
 }
 

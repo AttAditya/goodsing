@@ -1,8 +1,11 @@
 .verses {
-  background: var(--color-b4);
-  height: 100vh;
-  overflow-y: auto;
-  position: relative;
+  --size: calc(100vh - 3rem);
   scroll-snap-type: y mandatory;
+  overflow-y: auto;
+  width: 100%;
+  height: var(--size);
+  background: var(--color-b4);
+  position: absolute;
+  top: 3rem;
 }
 

@@ -1,0 +1,46 @@
+.navbar {
+  position: absolute;
+  width: 100%;
+  height: 4rem;
+  background: var(--color-b4);
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  z-index: 10;
+}
+
+.navbar-tabs {
+  display: flex;
+  gap: 1rem;
+  color: var(--color-c3);
+  flex: 1;
+}
+
+.navbar-tab {
+  line-height: 1.25;
+  font-weight: 100;
+  cursor: pointer;
+  position: relative;
+}
+
+.navbar-tab::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 0.1rem;
+  left: 100%;
+  right: 100%;
+  bottom: 0.1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-tab.active::after {
+  left: 0;
+  right: 0;
+  background: var(--color-c3);
+}
+
+.navbar-profile {
+  color: var(--color-c3);
+}
+
