@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRoutes } from "@contexts/Routes";
 
 import { Container } from "@components/core/Container";
 import { Block } from "@components/core/Block";
@@ -7,7 +7,7 @@ import { IconButton } from "@components/core/IconButton";
 
 export function Navbar() {
   const tabs = ['Karaoke', 'Throne'];
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const { activeRoute, navigate } = useRoutes();
 
   return (
     <Container className="navbar">
@@ -15,10 +15,10 @@ export function Navbar() {
         {tabs.map((tab) => (
           <Block
             key={tab}
-            onClick={() => setActiveTab(tab)}
+            onClick={() => navigate(tab.toLowerCase())}
             className={[
               "navbar-tab",
-              tab === activeTab ? "active" : "",
+              tab.toLowerCase() === activeRoute ? "active" : "",
             ].join(" ")}
           >
             <TextContent>{tab}</TextContent>

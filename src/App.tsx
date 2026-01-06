@@ -1,33 +1,28 @@
-import {
-  BrowserRouter,
-  HashRouter,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { Navbar } from "@components/commons/Navbar";
+import { Route } from "@components/commons/Route";
+import { Router } from "@components/commons/Router";
+import { Container } from "@components/core/Container";
 
 import { Landing } from "@pages/landing";
-import { Navbar } from "@components/commons/Navbar";
+import { Verses } from "@pages/verses";
 
 declare global {
   interface Window {
-    routerMode?: 'Browser' | 'Hash';
     scrolledHeight?: number;
   }
 }
 
 export function App() {
-  const Router = {
-    Browser: BrowserRouter,
-    Hash: HashRouter
-  }[window.routerMode || 'Browser'];
-
   return (
-    <Router>
+    <Container>
       <Navbar />
       
-      <Routes>
-        <Route index element={<Landing />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Route path=""><Landing /></Route>
+        <Route path="throne"><Landing /></Route>
+        <Route path="karaoke"><Verses /></Route>
+      </Router>
+    </Container>
   );
 }
+

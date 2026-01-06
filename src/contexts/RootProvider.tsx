@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { RoutesProvider } from '@contexts/Routes';
 
 interface RootProviderProps {
   children: ReactNode;
@@ -19,6 +20,6 @@ export function RootProvider({ children }: RootProviderProps) {
     );
   };
 
-  return mergeProviders();
+  return mergeProviders(RoutesProvider);
 }
 

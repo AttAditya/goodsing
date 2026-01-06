@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import { Verses } from "@pages/verses";
+import { useCallback } from "react";
 
 export function Landing() {
-  const [ready, setReady] = useState<boolean>(false);
-  
-  useEffect(() => {
-    if (!ready) return;
-    document.documentElement
-      .requestFullscreen?.()
-      .catch(() => {});
-  }, [ready]);
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement
+        .requestFullscreen()
+        .catch(() => {});
+    } else {
+      document.exitFullscreen()
+        .catch(() => {});
+    }
+  }, []);
 
-  if (ready) return <Verses />;
   return (
     <div className="landing">
-      <button onClick={() => setReady(true)}>
-        Start
+      <button onClick={() => toggleFullscreen()}>
+        Toggle Fullscreen
       </button>
     </div>
   );
