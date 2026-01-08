@@ -32,7 +32,7 @@ export function Verse({
   const parentHeight = useRef<number>(0);
   const linesRef = useRef<{ [key: string]: RefObject<number> }>({});
   
-  const [hyped, setHyped] = useState(false);
+  const [starred, setStarred] = useState(false);
   const [optionsActive, setOptionsActive] = useState(false);
 
   const {
@@ -149,8 +149,8 @@ export function Verse({
             />
 
             <IconButton
-              onClick={() => setHyped((hyped) => !hyped)}
-              icon={hyped ? "Sparkles" : "ArrowBigUp"}
+              onClick={() => setStarred((starred) => !starred)}
+              icon={starred ? "Sparkles" : "Sparkle"}
               filled
             />
           </>}
