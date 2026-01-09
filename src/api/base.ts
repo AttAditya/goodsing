@@ -4,12 +4,18 @@ export const callApi = async <T = any>(
   body: any = null, 
   retry: number = 0
 ): Promise<T | null> => {
-  const API_BASE_URL = (window as any).apiBaseUrl || 'http://localhost:3000';
+  const fallsafeUrl = 'http://localhost:3000';
+  const overrideUrl = (window as Window & {
+    apiBaseUrl?: string
+  }).apiBaseUrl;
 
+  const api_base_url = overrideUrl || fallsafeUrl;
   const credentials: RequestCredentials = 'include';
-  const headers: Record<string, string> = method === 'GET' ? {} : {
-    'Content-Type': 'application/json',
-  };
+  const headers: {[ key: string]: string } = method === 'GET'
+    ? {}
+    : {
+      'Content-Type': 'application/json',
+    };
 
   const requestBody = method === "GET"
     ? null
@@ -19,7 +25,7 @@ export const callApi = async <T = any>(
         : undefined
     );
   
-  const url = `${API_BASE_URL}${endpoint}`;
+  const url = `${api_base_url}${endpoint}`;
   const options: RequestInit = {
     method,
     credentials,
@@ -28,6 +34,7 @@ export const callApi = async <T = any>(
   };
 
   const resp = await fetch(url, options);
+  console.log(resp.ok);
 
   if (resp.ok) return await resp.json();
   if (retry <= 0) return null;
@@ -36,3 +43,4 @@ export const callApi = async <T = any>(
     endpoint, method, body, retry - 1
   );
 };
+

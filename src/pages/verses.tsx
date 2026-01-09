@@ -1,13 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { VerseData } from "@interfaces/verse";
 import { ReelScroller } from "@components/core/ReelScroller";
 import { Verse } from "@components/verses/Verse";
-import { VERSES } from "@registry/verses";
+import { Container } from "@components/core/Container";
+import { fetchVerses } from "@api/verse";
 
 export function Verses() {
-  const verses: VerseData[] = VERSES;
+  const [ready, setReady] = useState(false);
+  const [verses, setVerses] = useState<VerseData[]>([]);
   const [currentVerseIndex, setCurrentVerseIndex] = useState(0);
+
+  useEffect(() => {
+    const loadVerses = async () => {
+      const verses = await fetchVerses();
+      if (verses) setVerses(verses);
+      setReady(true);
+    };
+
+    loadVerses();
+  }, []);
+
+  if (!ready) return (
+    <Container className="verses">
+      Loading...
+    </Container>
+  );
 
   return (
     <ReelScroller

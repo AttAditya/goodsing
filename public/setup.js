@@ -1,1 +1,1 @@
-window.apiBaseUrl = 'http://localhost:3000';
+window.apiBaseUrl = 'http://localhost:8000/api/v1';
