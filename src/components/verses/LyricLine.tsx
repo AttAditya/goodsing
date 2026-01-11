@@ -29,11 +29,11 @@ export function LyricLine({
       key={index}
       topRef={linesRef.current[key]}
       onClick={() => setTime(lyricTimestamp(index))}
-      className={[
+      classNames={[
         "lyric-line",
         index < currentLyricIndex && active ? "done" : "",
         index === currentLyricIndex && active ? "active" : "",
-      ].join(" ")}
+      ]}
     >
       {lyric.lyric}
     </Block>

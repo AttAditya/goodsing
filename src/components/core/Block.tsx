@@ -6,7 +6,7 @@ export function Block({
   widthRef,
   heightRef,
   elementRef,
-  className,
+  classNames = [],
   onClick,
   children,
 }: {
@@ -15,11 +15,12 @@ export function Block({
   widthRef?: RefObject<number>;
   heightRef?: RefObject<number>;
   elementRef?: RefObject<HTMLDivElement | null>;
-  className?: string;
+  classNames?: string[];
   onClick?: () => void;
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const className = classNames.join(" ");
 
   useLayoutEffect(() => {
     const el = ref.current;

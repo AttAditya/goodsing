@@ -10,29 +10,29 @@ export function Navbar() {
   const { activeRoute, navigate } = useRoutes();
 
   return (
-    <Container className="navbar">
-      <Container className="navbar-tabs">
+    <Container classNames={["navbar"]}>
+      <Container classNames={["navbar-tabs"]}>
         {tabs.map((tab) => (
           <Block
             key={tab}
             onClick={() => navigate(tab.toLowerCase())}
-            className={[
+            classNames={[
               "navbar-tab",
               tab.toLowerCase() === activeRoute ? "active" : "",
-            ].join(" ")}
+            ]}
           >
             <Container
-              className={[
+              classNames={[
                 "navbar-tab-after",
                 tab.toLowerCase() === activeRoute ? "active" : "",
-              ].join(" ")}
+              ]}
             />
             <TextContent>{tab}</TextContent>
           </Block>
         ))}
       </Container>
 
-      <Container className="navbar-profile">
+      <Container classNames={["navbar-profile"]}>
         <IconButton
           icon="IdCard"
           variant="secondary"

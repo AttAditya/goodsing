@@ -7,12 +7,12 @@ export function Sweeper({
   children?: ReactNode;
 }) {
   return (
-    <Container className="sweeper">
-      <Container className="sweeper-content">
+    <Container classNames={["sweeper"]}>
+      <Container classNames={["sweeper-content"]}>
         {children}
       </Container>
 
-      <Container className="sweeper-content">
+      <Container classNames={["sweeper-content"]}>
         {children}
       </Container>
     </Container>

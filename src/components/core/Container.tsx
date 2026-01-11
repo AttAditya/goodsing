@@ -1,16 +1,16 @@
 import { ReactNode } from "react";
 
 export function Container({
-  className,
-  id,
+  classNames = [],
   children = null,
 }: {
-  className?: string;
-  id?: string;
+  classNames?: string[];
   children?: ReactNode;
 }) {
+  const className = classNames.join(" ");
+
   return (
-    <div className={className} id={id}>
+    <div className={className}>
       {children}
     </div>
   );

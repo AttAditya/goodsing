@@ -22,14 +22,14 @@ export function Verses() {
   }, []);
 
   if (!ready) return (
-    <Container className="verses">
+    <Container classNames={["verses"]}>
       Loading...
     </Container>
   );
 
   return (
     <ReelScroller
-      className="verses"
+      classNames={["verses"]}
       setIndex={setCurrentVerseIndex}
     >
       {verses.map((verse, index) => (

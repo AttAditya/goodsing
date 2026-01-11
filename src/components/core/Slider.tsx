@@ -32,13 +32,13 @@ export function Slider({
   }, [updateValue]);
 
   return (
-    <Container className="slider">
+    <Container classNames={["slider"]}>
       {iconMin && <Icon icon={iconMin} />}
       
-      <Container className="slider-main">
+      <Container classNames={["slider-main"]}>
         <input
           type="range"
-          className="slider-input"
+          className={"slider-input"}
           min={min}
           max={max}
           step={step}
@@ -47,16 +47,16 @@ export function Slider({
           list={"slider-ticks"}
         />
 
-        <Container className="slider-ticks">
+        <Container classNames={["slider-ticks"]}>
           {[...Array(3)].map((_, index) => (
             <Container
               key={index}
-              className="slider-tick"
+              classNames={["slider-tick"]}
             />
           ))}
         </Container>
 
-        <Container className="slider-label-container">
+        <Container classNames={["slider-label-container"]}>
           <div className="slider-label" style={{
             left: `${((value - min) / (max - min)) * 100}%`,
           }}>

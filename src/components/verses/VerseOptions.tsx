@@ -9,11 +9,11 @@ export function VerseOptions({
   updateSpeed?: (value: number) => void;
 }) {
   return (
-    <Container className={[
+    <Container classNames={[
       "verse-options",
       active ? "active" : "",
-    ].join(" ")}>
-      <Container className="verse-options-content">
+    ]}>
+      <Container classNames={["verse-options-content"]}>
         <Slider
           min={0.75}
           max={1.25}

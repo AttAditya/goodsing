@@ -1,3 +1,5 @@
+import { Container } from "@components/core/Container";
+import { IconButton } from "@components/core/IconButton";
 import { useCallback } from "react";
 
 export function Landing() {
@@ -13,11 +15,13 @@ export function Landing() {
   }, []);
 
   return (
-    <div className="landing">
-      <button onClick={() => toggleFullscreen()}>
-        Toggle Fullscreen
-      </button>
-    </div>
+    <Container classNames={["landing"]}>
+      <IconButton
+        icon="Fullscreen"
+        onClick={() => toggleFullscreen()}
+        variant="secondary"
+      />
+    </Container>
   );
 }
 

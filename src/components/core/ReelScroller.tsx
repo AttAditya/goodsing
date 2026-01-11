@@ -3,14 +3,15 @@ import { useScrollHandler } from "@hooks/useScrollHandler";
 
 export function ReelScroller({
   setIndex,
-  className,
+  classNames = [],
   children,
 }: {
   setIndex: Dispatch<SetStateAction<number>>;
-  className?: string;
+  classNames?: string[];
   children: ReactNode;
 }) {
   const { scrollHandler } = useScrollHandler(setIndex);
+  const className = classNames.join(" ");
 
   return (
     <div

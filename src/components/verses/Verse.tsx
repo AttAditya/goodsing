@@ -74,24 +74,26 @@ export function Verse({
 
   return (
     <Container
-      className={`verse ${scrollReady ? "scroll-ready" : ""}`}
-      id={`sing-${verseId}`}
+      classNames={[
+        "verse",
+        scrollReady ? "scroll-ready" : "",
+      ]}
     >
-      <Container className="verse-container">
-        <Container className="verse-meta">
+      <Container classNames={["verse-container"]}>
+        <Container classNames={["verse-meta"]}>
           <Sweeper>
-            <TextContent className="verse-song-name">
+            <TextContent classNames={["verse-song-name"]}>
               {songName}
             </TextContent>
-            <TextContent className="verse-name">
+            <TextContent classNames={["verse-name"]}>
               {` - ${verseName}`}
             </TextContent>
           </Sweeper>
           
-          <Container className="verse-creators">
+          <Container classNames={["verse-creators"]}>
             <TextContent>By</TextContent>
             {creators.map((creator, index) => (
-              <TextContent key={index} className="verse-creator">
+              <TextContent key={index} classNames={["verse-creator"]}>
                 {[
                   creator.name,
                   index < creators.length - 1 ? "," : "",
@@ -101,9 +103,9 @@ export function Verse({
           </Container>
         </Container>
 
-        <Container className="verse-contents">
+        <Container classNames={["verse-contents"]}>
           <ScrollableBlock
-            className="verse-lyrics"
+            classNames={["verse-lyrics"]}
             topRef={parentTop}
             heightRef={parentHeight}
             elementRef={parentRef}
@@ -122,7 +124,7 @@ export function Verse({
           </ScrollableBlock>
         </Container>
 
-        <Container className="verse-controls">
+        <Container classNames={["verse-controls"]}>
           {!audioReady && <IconButton
             passive
             icon="LoaderCircle"
