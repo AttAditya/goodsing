@@ -22,10 +22,6 @@
   -webkit-appearance: none;
 }
 
-.slider-input::after {
-  content: attr("value");
-}
-
 .slider-input::-webkit-slider-runnable-track {
   height: 1rem;
   background: var(--color-c1);

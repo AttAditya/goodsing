@@ -23,7 +23,7 @@
   position: relative;
 }
 
-.navbar-tab::after {
+.navbar-tab-after {
   content: "";
   display: block;
   position: absolute;
@@ -34,7 +34,7 @@
   transition: all 0.3s ease-in-out;
 }
 
-.navbar-tab.active::after {
+.navbar-tab-after.active {
   left: 0;
   right: 0;
   background: var(--color-c3);

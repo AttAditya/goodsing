@@ -21,6 +21,12 @@ export function Navbar() {
               tab.toLowerCase() === activeRoute ? "active" : "",
             ].join(" ")}
           >
+            <Container
+              className={[
+                "navbar-tab-after",
+                tab.toLowerCase() === activeRoute ? "active" : "",
+              ].join(" ")}
+            />
             <TextContent>{tab}</TextContent>
           </Block>
         ))}
