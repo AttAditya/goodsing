@@ -16,36 +16,36 @@
     opacity 0.3s ease-in-out;
 }
 
-.icon-button.passive {
+.icon-button-passive {
   background: var(--color-c2);
   color: var(--color-c4);
   cursor: default;
 }
 
-.icon-button:not(.passive):hover {
+.icon-button-active:hover {
   background: var(--color-b4);
 }
 
-.icon-button:not(.passive):active {
+.icon-button-active:active {
   scale: 0.8;
 }
 
-.icon-button.secondary {
+.icon-button-secondary {
   opacity: 0.5;
   background: var(--color-c4);
   color: var(--color-b4);
 }
 
-.icon-button.secondary:hover {
+.icon-button-secondary:hover {
   background: var(--color-c4);
   opacity: 1;
 }
 
-.icon-button.small {
+.icon-button-small {
   padding: 0.5rem;
 }
 
-.icon-button.small .icon {
+.icon-button-small .icon {
   width: 1.25rem;
   height: 1.25rem;
 }
